@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>电荷落差与以太梯子：公式直观</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1d1d1f;--mute:#6b6b70;--line:#e3e1dc;--card:#fff;--a:#2f6fd6;--b:#d9822b;--c:#2e9e6b;--d:#b0478f;--e:#7a5cc7}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--ink:#ececee;--mute:#9a9aa2;--line:#2c2c31;--card:#1c1c20}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,"PingFang SC","Noto Sans SC",sans-serif}
+main{max-width:920px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;margin:0 0 6px}h2{font-size:19px;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 22px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px}
+.f{font-family:"SF Mono",Menlo,monospace;background:color-mix(in srgb,var(--a) 9%,transparent);padding:2px 7px;border-radius:6px;font-size:14px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+input[type=range]{flex:1;min-width:200px;accent-color:var(--a)}
+button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:4px 12px;font-size:14px;cursor:pointer}
+button:hover{border-color:var(--a)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:10px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.tile b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.tile span{color:var(--mute);font-size:13px}
+canvas{width:100%;height:300px;display:block}
+.note{color:var(--mute);font-size:14px;margin:8px 0 0}
+.big{font-size:20px;font-weight:600}
+</style>
+</head>
+<body>
+<main>
+<h1>电荷落差与以太梯子：公式直观</h1>
+<p class="sub">拖动滑块，看同一个落差在能量、温度、频率、质量、速度之间怎么换算。所有数值按 CODATA 常数实时计算。</p>
+
+<section>
+<h2>一、同一道电荷落差，四种面目</h2>
+<p class="note" style="margin-top:0">四个常数就是四个换算比：<span class="f">E = eΔV</span> <span class="f">T = eΔV / k_B</span> <span class="f">ν = eΔV / h</span> <span class="f">m = eΔV / c²</span></p>
+<div class="row"><span>落差 ΔV</span><input id="v" type="range" min="0" max="4" step="0.001" value="0.2"><span class="big" id="vv"></span></div>
+<div class="row" id="presets"></div>
+<div class="grid">
+<div class="tile"><span>能量（电荷 e）</span><b id="oE"></b><span id="oE2"></span></div>
+<div class="tile"><span>温度（k_B）</span><b id="oT"></b><span id="oT2"></span></div>
+<div class="tile"><span>频率（h）</span><b id="oN"></b><span id="oN2"></span></div>
+<div class="tile"><span>质量（c）</span><b id="oM"></b><span>每个一价电荷落下一次</span></div>
+</div>
+<canvas id="spec" style="height:70px;margin-top:14px"></canvas>
+<p class="note">色带是电磁波谱（对数刻度）。线粒体 0.2 V 落在中红外 48 THz；体温热运动 k_BT/h 约 6.5 THz。</p>
+</section>
+
+<section>
+<h2>二、浓度差换电压（能斯特方程）</h2>
+<p class="note" style="margin-top:0"><span class="f">ΔV = (k_B·T / z·e) · ln(c外 / c内)</span>：浓度每差 10 倍，电压差一个固定台阶。</p>
+<div class="row"><span>温度</span><input id="t" type="range" min="273" max="373" step="1" value="310"><span class="big" id="tv"></span></div>
+<div class="row"><span>电荷数 z</span><button data-z="1">1（H⁺ Na⁺ K⁺）</button><button data-z="2">2（Ca²⁺）</button><span id="slope" class="big"></span></div>
+<canvas id="nernst"></canvas>
+<p class="note">点是人体细胞里的真实离子：K⁺ 外 5 mM／内 140 mM，Na⁺ 外 145／内 12，Ca²⁺ 外 2／内 0.0001（mM）。</p>
+</section>
+
+<section>
+<h2>三、能量认电荷，速度认质量</h2>
+<p class="note" style="margin-top:0"><span class="f">v = √(2·z·e·ΔV / m)</span>：同一落差给每个一价离子的能量一样，跑多快按质量分。</p>
+<canvas id="speed"></canvas>
+<p class="note">横轴是落差（0–1 V），纵轴是自由加速后的速度（km/s）。在水里离子会被撞慢，这里看的是落差本身给了多少。</p>
+</section>
+
+<section>
+<h2>四、万物梯子与中间级定律</h2>
+<p class="note" style="margin-top:0"><span class="f">m(k) = m宇宙^(1−k) · m普朗克^k</span>　<span class="f">ν以太 · H = ν人类边界²</span>　<span class="f">ħ·G = c⁵ / (4π²·ν以太·H)</span></p>
+<div class="row"><span>哈勃常数</span><input id="h" type="range" min="61.8" max="63.5" step="0.1" value="62"><span class="big" id="hv"></span></div>
+<div class="grid">
+<div class="tile"><span>每层倍数 N</span><b id="oNN"></b></div>
+<div class="tile"><span>今天的以太频率</span><b id="oNe"></b></div>
+<div class="tile"><span>宇宙年龄（H₀t₀＝0.876）</span><b id="oAge"></b></div>
+<div class="tile"><span>梯子中点频率</span><b id="oMid"></b></div>
+</div>
+<canvas id="ladder" style="height:240px;margin-top:12px"></canvas>
+<p class="note">0＝宇宙装得下的最轻的结，1＝普朗克质量（人类观测边界），2＝整个哈勃球。下半段是量子世界，上半段是宏观世界。</p>
+</section>
+</main>
+<script>
+const e=1.602176634e-19,kB=1.380649e-23,h=6.62607015e-34,c=299792458,hb=h/2/Math.PI,G=6.6743e-11,u=1.66053906660e-27;
+const $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function sci(x,d=2){if(x===0)return'0';const p=Math.floor(Math.log10(Math.abs(x)));const m=x/10**p;return p>=-2&&p<=4?x.toLocaleString('zh-CN',{maximumFractionDigits:d}):m.toFixed(d)+'×10'+String(p).replace(/-/,'⁻').replace(/\d/g,s=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[s])}
+function fit(cv){const r=cv.getBoundingClientRect(),dpr=devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);return[g,r.width,r.height]}
+
+/* 一 */
+const P=[['静息膜电位',0.07],['神经放电峰',0.1],['线粒体质子坝',0.2],['膜被击穿',0.7],['一节干电池',1.5],['锂电池',3.7]];
+P.forEach(([n,x])=>{const b=document.createElement('button');b.textContent=n+' '+x+' V';b.onclick=()=>{$('v').value=x;one()};$('presets').appendChild(b)});
+function band(f){if(f<3e11)return'无线电／微波';if(f<4e14)return'红外';if(f<7.9e14)return'可见光';if(f<3e16)return'紫外';return'X 射线'}
+function one(){const V=+$('v').value,E=e*V;$('vv').textContent=V.toFixed(3)+' V';
+$('oE').textContent=V.toFixed(3)+' eV';$('oE2').textContent=sci(E)+' J';
+$('oT').textContent=sci(E/kB,0)+' K';$('oT2').textContent='约 '+(E/(kB*310)).toFixed(1)+' 个体温 kT';
+const f=E/h;$('oN').textContent=sci(f/1e12,1)+' THz';$('oN2').textContent=band(f);
+$('oM').textContent=sci(E/c**2)+' kg';drawSpec(f)}
+function drawSpec(f){const[g,W,H]=fit($('spec'));const lo=9,hi=17,x=v=>(Math.log10(v)-lo)/(hi-lo)*W;
+const segs=[[1e9,3e11,'#8fa8c8'],[3e11,4e14,'#d98a6a'],[4e14,7.9e14,null],[7.9e14,3e16,'#9b7fd1'],[3e16,1e17,'#6a6a7a']];
+segs.forEach(([a,b,col])=>{if(col){g.fillStyle=col;g.fillRect(x(a),18,x(b)-x(a),22)}else{const gr=g.createLinearGradient(x(a),0,x(b),0);['#e2442f','#f2a33a','#f7e04b','#4cbf5a','#3a7be0','#7a4ad8'].forEach((cc,i,A)=>gr.addColorStop(i/(A.length-1),cc));g.fillStyle=gr;g.fillRect(x(a),18,x(b)-x(a),22)}});
+g.fillStyle=css('--mute');g.font='12px sans-serif';[['1 GHz',1e9],['1 THz',1e12],['1 PHz',1e15]].forEach(([t,v])=>g.fillText(t,x(v)+2,58));
+const kx=x(kB*310/h);g.fillStyle=css('--mute');g.fillRect(kx-1,12,2,34);g.fillText('体温',kx+3,12);
+const fx=Math.max(0,Math.min(W,x(f)));g.fillStyle=css('--ink');g.beginPath();g.moveTo(fx,46);g.lineTo(fx-6,56);g.lineTo(fx+6,56);g.fill();g.fillRect(fx-1,12,2,34)}
+
+/* 二 */
+let Z=1;document.querySelectorAll('[data-z]').forEach(b=>b.onclick=()=>{Z=+b.dataset.z;two()});
+function axes(g,W,H,L,B,xl,yl){g.strokeStyle=css('--line');g.lineWidth=1;g.beginPath();g.moveTo(L,10);g.lineTo(L,H-B);g.lineTo(W-10,H-B);g.stroke();g.fillStyle=css('--mute');g.font='12px sans-serif';g.fillText(yl,L+6,18);g.fillText(xl,W-g.measureText(xl).width-12,H-B-8)}
+function two(){const T=+$('t').value;$('tv').textContent=T+' K（'+(T-273.15).toFixed(0)+' °C）';
+const s=Math.log(10)*kB*T/(Z*e)*1000;$('slope').textContent='每 10 倍 '+s.toFixed(1)+' mV';
+const[g,W,H]=fit($('nernst'));const L=48,B=28;axes(g,W,H,L,B,'浓度比 c外/c内（对数）','电压差 mV');
+const x=d=>L+(d+6)/12*(W-L-20),ymax=400,y=mv=>(H-B)/2-mv/ymax*((H-B)/2-14);
+g.strokeStyle=css('--line');g.beginPath();g.moveTo(L,y(0));g.lineTo(W-10,y(0));g.stroke();
+g.fillStyle=css('--mute');for(let d=-6;d<=6;d+=2)g.fillText('10'+(d<0?'⁻':'')+'⁰¹²³⁴⁵⁶'[Math.abs(d)],x(d)-8,H-8);
+[-300,-150,150,300].forEach(m=>g.fillText(m,6,y(m)+4));
+g.strokeStyle=css('--a');g.lineWidth=2.5;g.beginPath();for(let d=-6;d<=6;d+=0.05){const mv=s*d;d===-6?g.moveTo(x(d),y(mv)):g.lineTo(x(d),y(mv))}g.stroke();
+const ions=[['K⁺',5/140,1,css('--b')],['Na⁺',145/12,1,css('--c')],['Ca²⁺',2/0.0001,2,css('--d')]];
+ions.forEach(([n,r,z,col])=>{const d=Math.log10(r),mv=Math.log(10)*kB*T/(z*e)*1000*d;g.fillStyle=col;g.beginPath();g.arc(x(d),y(mv),5,0,7);g.fill();g.fillStyle=css('--ink');g.fillText(n+' '+mv.toFixed(0)+' mV',x(d)+8,y(mv)-6)})}
+
+/* 三 */
+function three(){const[g,W,H]=fit($('speed'));const L=48,B=28;axes(g,W,H,L,B,'落差 ΔV（V）','速度 km/s');
+const ions=[['H⁺',1.00728,1,css('--a')],['Li⁺',7.016,1,css('--e')],['Na⁺',22.99,1,css('--c')],['K⁺',39.1,1,css('--b')],['Ca²⁺',40.08,2,css('--d')]];
+const vmax=14,x=V=>L+V*(W-L-20),y=v=>H-B-v/vmax*(H-B-20);
+g.fillStyle=css('--mute');[0,0.25,0.5,0.75,1].forEach(V=>g.fillText(V,x(V)-6,H-8));[0,5,10].forEach(v=>g.fillText(v,20,y(v)+4));
+ions.forEach(([n,A,z,col])=>{g.strokeStyle=col;g.lineWidth=2.2;g.beginPath();for(let V=0;V<=1.0001;V+=0.01){const v=Math.sqrt(2*z*e*V/(A*u))/1000;V===0?g.moveTo(x(V),y(v)):g.lineTo(x(V),y(Math.min(v,vmax)))}g.stroke();
+const v1=Math.sqrt(2*z*e*1/(A*u))/1000;g.fillStyle=col;g.fillText(n,x(1)-30,y(Math.min(v1,vmax))-6)});
+const xv=x(0.2);g.strokeStyle=css('--line');g.setLineDash([4,4]);g.beginPath();g.moveTo(xv,14);g.lineTo(xv,H-B);g.stroke();g.setLineDash([]);g.fillStyle=css('--mute');g.fillText('线粒体 0.2 V',xv+4,28)}
+
+/* 四 */
+const things=[['宇宙层最轻的结',0],['中微子',0.512],['电子',0.628],['质子',0.682],['C60',0.730],['病毒',0.828],['尘粒',0.878],['普朗克质量',1],['人',1.158],['地球',1.539],['太阳',1.631],['银河系',1.833],['整个哈勃球',2]];
+function four(){const H0=+$('h').value;$('hv').textContent=H0.toFixed(1);const Hs=H0*1e3/3.0857e22;const nuP=Math.sqrt(c**5/(hb*G))/(2*Math.PI);
+$('oNN').textContent=sci(nuP/Hs);$('oNe').textContent=sci(nuP*nuP/Hs)+' Hz';$('oAge').textContent=(0.876*977.8/H0).toFixed(2)+' 亿×10';$('oAge').textContent=(0.876*977.8/H0*10).toFixed(1)+' 亿年';$('oMid').textContent=(Math.sqrt(Hs*nuP)/1e12).toFixed(2)+' THz';
+const[g,W,H]=fit($('ladder'));const L=20,R=W-20,x=k=>L+k/2*(R-L),y0=H/2;
+g.fillStyle=color(0.12,'--a');g.fillRect(x(0),y0-10,x(1)-x(0),20);g.fillStyle=color(0.12,'--b');g.fillRect(x(1),y0-10,x(2)-x(1),20);
+g.fillStyle=css('--mute');g.font='12px sans-serif';g.fillText('量子世界',x(0.42),y0+32);g.fillText('宏观世界',x(1.42),y0+32);
+things.forEach(([n,k],i)=>{g.fillStyle=k<1?css('--a'):css('--b');g.beginPath();g.arc(x(k),y0,k===1?7:5,0,7);g.fill();g.save();g.translate(x(k),i%2?y0+44:y0-18);g.rotate(-0.6);g.fillStyle=css('--ink');g.fillText(n,0,0);g.restore()})}
+function color(a,v){const col=css(v);return col.startsWith('#')?col+Math.round(a*255).toString(16).padStart(2,'0'):col}
+
+$('v').oninput=one;$('t').oninput=two;$('h').oninput=four;
+function all(){one();two();three();four()}addEventListener('resize',all);all();
+</script>
+</body>
+</html>

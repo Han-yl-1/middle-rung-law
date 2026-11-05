@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>以太公式全表：元素、物理、化学</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1d1d1f;--mute:#6b6b70;--line:#e3e1dc;--card:#fff;--a:#2f6fd6;--s:#e7a06a;--p:#7fbf8f;--d:#7fa6d9;--f:#c29ad6;--hi:#fff3c4}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--ink:#ececee;--mute:#9a9aa2;--line:#2c2c31;--card:#1c1c20;--hi:#4a4020}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,"PingFang SC","Noto Sans SC",sans-serif}
+main{max-width:1180px;margin:0 auto;padding:26px 16px 60px}
+h1{font-size:25px;margin:0 0 6px}.sub{color:var(--mute);margin:0 0 14px}
+.law{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+.f{font-family:"SF Mono",Menlo,monospace;font-size:14px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mute);margin-left:6px}
+.tabs{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
+.tabs button,.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer}
+.tabs button.on{border-color:var(--a);color:var(--a);font-weight:600}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0}
+input[type=range]{flex:1;min-width:220px;accent-color:var(--a)}
+.pt{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:3px}
+.el{border-radius:6px;padding:3px 2px;text-align:center;cursor:pointer;border:1px solid transparent;min-height:50px;color:#1d1d1f}
+.el small{display:block;font-size:10px;opacity:.75}.el b{display:block;font-size:15px;line-height:1.1}
+.el:hover,.el.sel{outline:2px solid var(--a)}
+.gap{height:10px;grid-column:1/-1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.kv div{border:1px solid var(--line);border-radius:9px;padding:8px 10px}.kv span{color:var(--mute);font-size:12px;display:block}
+.kv b{font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top;text-align:left}
+th{font-size:13px;color:var(--mute);font-weight:600}
+td.f{white-space:normal;word-break:break-word}
+.ok{color:#2e9e6b;font-weight:600}.ee{background:var(--hi);border-radius:4px;padding:0 3px}
+.note{color:var(--mute);font-size:13px}
+@media (max-width:760px){.el b{font-size:12px}.el small{display:none}.el{min-height:34px}}
+</style>
+</head>
+<body>
+<main>
+<h1>以太公式全表：元素、物理、化学</h1>
+<p class="sub">把元素周期表、物理公式、化学公式，用以太频率 ν以太、宇宙膨胀率 H 改写，并标出自然常数 e 出现的地方。</p>
+
+<div class="law">
+<div><b>中间级定律</b>（乙版，2026-11-05 提出）：<span class="f">ħ · G = c⁵ / (4π² · ν以太 · H)</span>，即 <span class="f">ν以太 · H = ν人类边界²</span></div>
+<div class="row"><span>哈勃常数 H₀</span><input id="h" type="range" min="61.8" max="63.5" step="0.1" value="62"><b id="hv"></b></div>
+<div class="note" id="lawnums"></div>
+<div class="note">读法说明：乙版写法由中间级定律换写，数值与标准写法完全相同（下表「核对」一栏实时验算）。ν以太与 H 总是以乘积出现，所以 ħ 与 G 只能消去其中一个。自然常数 e 只在指数与对数里出现，用<span class="ee">底色</span>标出。</div>
+</div>
+
+<div class="tabs"><button data-t="pt" class="on">元素周期表（以太结构 1–118）</button><button data-t="phy">物理公式</button><button data-t="chem">化学公式</button><button data-t="num">以太数字表 0–12</button></div>
+
+<section id="t-pt">
+<div class="row"><input id="q" placeholder="搜元素：符号、名称或结构号" style="flex:1;min-width:200px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)"></div>
+<div class="pt" id="pt"></div>
+<div class="row note"><span class="chip" style="background:var(--s)">s 区</span><span class="chip" style="background:var(--p)">p 区</span><span class="chip" style="background:var(--d)">d 区</span><span class="chip" style="background:var(--f)">f 区</span>点任意元素看它的以太结构与频率。</div>
+<div class="card" id="det"></div>
+</section>
+
+<section id="t-phy" hidden><div class="card"><table id="phy"></table></div></section>
+<section id="t-chem" hidden><div class="card"><table id="chem"></table></div></section>
+<section id="t-num" hidden><div class="card"><p style="margin-top:0"><b>N 进制的梯子</b>：以 N 为底记数，宇宙＝<b>1</b>，人类边界＝<b>10</b>，以太＝<b>100</b>——三层梯子就是一个 N 进制的三位数。任意整数都可写成 <span class="f">n ＝ log_N((ν以太/H)^(n/2))</span>（这是记数法，不是发现）。</p><div class="row"><span>算一个：n＝</span><input id="nn" type="range" min="0" max="12" step="1" value="3"><b id="nv"></b></div><table id="num"></table><p class="note">性质一栏分五种：定律（来自中间级定律）、乙版（来自公理）、几何、先生说法、数学或文化。分量不一样。</p></div></section>
+</main>
+<script>
+const h=6.62607015e-34,hb=h/2/Math.PI,c=299792458,G=6.6743e-11,kB=1.380649e-23,qe=1.602176634e-19,eps0=8.8541878128e-12,me=9.1093837015e-31,u=1.66053906660e-27,NA=6.02214076e23,F=96485.33212,R=8.314462618;
+const $=i=>document.getElementById(i);
+let H,nuE,nuP,N;
+function sup(n){return String(n).replace(/-/g,'⁻').replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d])}
+function sci(x,d=3){if(!isFinite(x))return'—';if(x===0)return'0';const p=Math.floor(Math.log10(Math.abs(x)));if(p>=-2&&p<=4)return(+x.toPrecision(d+1)).toLocaleString('zh-CN');return(x/10**p).toFixed(d)+'×10'+sup(p)}
+function setH(){const H0=+$('h').value;$('hv').textContent=H0.toFixed(1)+' km/s/Mpc';H=H0*1e3/3.0857e22;nuP=Math.sqrt(c**5/(hb*G))/(2*Math.PI);nuE=nuP*nuP/H;N=nuP/H;
+$('lawnums').innerHTML='H＝'+sci(H)+' Hz　ν以太＝'+sci(nuE)+' Hz　ν人类边界＝'+sci(nuP)+' Hz　N＝'+sci(N)+'　ν以太·H＝'+sci(nuE*H)+'（恒等于 c⁵/4π²ħG＝'+sci(c**5/(4*Math.PI**2*hb*G))+'）';
+renderDet();renderPhy();renderChem();renderNum()}
+/* 乙版：从 ν以太·H 反求 ħ 或 G（保留另一个） */
+const hbY=()=>c**5/(4*Math.PI**2*G*nuE*H), GY=()=>c**5/(4*Math.PI**2*hb*nuE*H);
+
+/* 元素 */
+const RAW="H 氢 1.008|He 氦 4.0026|Li 锂 6.94|Be 铍 9.0122|B 硼 10.81|C 碳 12.011|N 氮 14.007|O 氧 15.999|F 氟 18.998|Ne 氖 20.180|Na 钠 22.990|Mg 镁 24.305|Al 铝 26.982|Si 硅 28.085|P 磷 30.974|S 硫 32.06|Cl 氯 35.45|Ar 氩 39.95|K 钾 39.098|Ca 钙 40.078|Sc 钪 44.956|Ti 钛 47.867|V 钒 50.942|Cr 铬 51.996|Mn 锰 54.938|Fe 铁 55.845|Co 钴 58.933|Ni 镍 58.693|Cu 铜 63.546|Zn 锌 65.38|Ga 镓 69.723|Ge 锗 72.630|As 砷 74.922|Se 硒 78.971|Br 溴 79.904|Kr 氪 83.798|Rb 铷 85.468|Sr 锶 87.62|Y 钇 88.906|Zr 锆 91.224|Nb 铌 92.906|Mo 钼 95.95|Tc 锝 98|Ru 钌 101.07|Rh 铑 102.91|Pd 钯 106.42|Ag 银 107.87|Cd 镉 112.41|In 铟 114.82|Sn 锡 118.71|Sb 锑 121.76|Te 碲 127.60|I 碘 126.90|Xe 氙 131.29|Cs 铯 132.91|Ba 钡 137.33|La 镧 138.91|Ce 铈 140.12|Pr 镨 140.91|Nd 钕 144.24|Pm 钷 145|Sm 钐 150.36|Eu 铕 151.96|Gd 钆 157.25|Tb 铽 158.93|Dy 镝 162.50|Ho 钬 164.93|Er 铒 167.26|Tm 铥 168.93|Yb 镱 173.05|Lu 镥 174.97|Hf 铪 178.49|Ta 钽 180.95|W 钨 183.84|Re 铼 186.21|Os 锇 190.23|Ir 铱 192.22|Pt 铂 195.08|Au 金 196.97|Hg 汞 200.59|Tl 铊 204.38|Pb 铅 207.2|Bi 铋 208.98|Po 钋 209|At 砹 210|Rn 氡 222|Fr 钫 223|Ra 镭 226|Ac 锕 227|Th 钍 232.04|Pa 镤 231.04|U 铀 238.03|Np 镎 237|Pu 钚 244|Am 镅 243|Cm 锔 247|Bk 锫 247|Cf 锎 251|Es 锿 252|Fm 镄 257|Md 钔 258|No 锘 259|Lr 铹 266|Rf 𬬻 267|Db 𬭊 268|Sg 𬭳 269|Bh 𬭛 270|Hs 𬭶 269|Mt 鿏 278|Ds 𫟼 281|Rg 𬬭 282|Cn 鿔 285|Nh 鿭 286|Fl 𫓧 289|Mc 镆 290|Lv 𫟷 293|Ts 鿬 294|Og 鿫 294";
+const EL=RAW.split('|').map((s,i)=>{const[sym,name,A]=s.split(' ');return{z:i+1,sym,name,A:+A}});
+function pos(Z){const ends=[2,10,18,36,54,86,118];let p=0;while(Z>ends[p])p++;const st=p?ends[p-1]+1:1,i=Z-st,per=p+1;
+if(per===1)return[1,i?18:1,'s'];if(per<=3)return i<2?[per,i+1,'s']:[per,i+11,'p'];
+if(per<=5)return[per,i+1,i<2?'s':i<12?'d':'p'];if(i<2)return[per,i+1,'s'];if(i<17)return[per+3,i+1,'f'];return[per,i-13,i<27?'d':'p']}
+const col={s:'var(--s)',p:'var(--p)',d:'var(--d)',f:'var(--f)'};
+let sel=26;
+function buildPT(){const g=$('pt');g.innerHTML='';EL.forEach(e=>{const[r,cl,b]=pos(e.z);e.blk=b;const d=document.createElement('div');d.className='el';d.style.gridRow=(r>7?r+1:r);d.style.gridColumn=cl;d.style.background=col[b];d.innerHTML='<small>'+e.z+'</small><b>'+e.sym+'</b><small>'+e.name+'</small>';d.onclick=()=>{sel=e.z;renderDet();mark()};d.dataset.z=e.z;g.appendChild(d)});
+const gp=document.createElement('div');gp.className='gap';gp.style.gridRow=8;g.appendChild(gp);mark()}
+function mark(){document.querySelectorAll('.el').forEach(d=>d.classList.toggle('sel',+d.dataset.z===sel))}
+$('q').oninput=()=>{const q=$('q').value.trim().toLowerCase();if(!q)return;const e=EL.find(e=>e.sym.toLowerCase()===q||e.name===q||String(e.z)===q)||EL.find(e=>e.sym.toLowerCase().startsWith(q)||e.name.includes(q));if(e){sel=e.z;renderDet();mark()}};
+
+/* 磁频率：Z: [同位素, 自旋, γ/2π MHz/T, 天然丰度 %]（约值，待核 IUPAC 2001 Harris 等核磁表） */
+const MAG={1:['¹H','1/2',42.577,99.99],2:['³He','1/2',32.434,0.0001],3:['⁷Li','3/2',16.546,92.4],4:['⁹Be','3/2',5.984,100],5:['¹¹B','3/2',13.663,80.1],6:['¹³C','1/2',10.708,1.07],7:['¹⁵N','1/2',4.316,0.37],8:['¹⁷O','5/2',5.774,0.038],9:['¹⁹F','1/2',40.078,100],10:['²¹Ne','3/2',3.361,0.27],11:['²³Na','3/2',11.262,100],12:['²⁵Mg','5/2',2.608,10],13:['²⁷Al','5/2',11.103,100],14:['²⁹Si','1/2',8.465,4.7],15:['³¹P','1/2',17.235,100],16:['³³S','3/2',3.272,0.76],17:['³⁵Cl','3/2',4.176,75.8],19:['³⁹K','3/2',1.989,93.3],20:['⁴³Ca','7/2',2.869,0.135],21:['⁴⁵Sc','7/2',10.359,100],22:['⁴⁹Ti','7/2',2.404,5.4],23:['⁵¹V','7/2',11.213,99.75],24:['⁵³Cr','3/2',2.412,9.5],25:['⁵⁵Mn','5/2',10.553,100],26:['⁵⁷Fe','1/2',1.382,2.1],27:['⁵⁹Co','7/2',10.077,100],28:['⁶¹Ni','3/2',3.811,1.1],29:['⁶³Cu','3/2',11.319,69.2],30:['⁶⁷Zn','5/2',2.669,4.1],31:['⁷¹Ga','3/2',13.021,39.9],32:['⁷³Ge','9/2',1.490,7.8],33:['⁷⁵As','3/2',7.315,100],34:['⁷⁷Se','1/2',8.157,7.6],35:['⁸¹Br','3/2',11.539,49.3],36:['⁸³Kr','9/2',1.645,11.5],37:['⁸⁷Rb','3/2',13.984,27.8],38:['⁸⁷Sr','9/2',1.852,7.0],39:['⁸⁹Y','1/2',2.095,100],41:['⁹³Nb','9/2',10.452,100],42:['⁹⁵Mo','5/2',2.787,15.9],45:['¹⁰³Rh','1/2',1.348,100],47:['¹⁰⁹Ag','1/2',1.992,48.2],48:['¹¹³Cd','1/2',9.487,12.2],49:['¹¹⁵In','9/2',9.384,95.7],50:['¹¹⁹Sn','1/2',15.966,8.6],51:['¹²¹Sb','5/2',10.255,57.2],52:['¹²⁵Te','1/2',13.545,7.1],53:['¹²⁷I','5/2',8.578,100],54:['¹²⁹Xe','1/2',11.860,26.4],55:['¹³³Cs','7/2',5.623,100],56:['¹³⁷Ba','3/2',4.761,11.2],57:['¹³⁹La','7/2',6.061,99.9],74:['¹⁸³W','1/2',1.795,14.3],76:['¹⁸⁷Os','1/2',0.987,1.96],78:['¹⁹⁵Pt','1/2',9.15,33.8],80:['¹⁹⁹Hg','1/2',7.63,16.9],81:['²⁰⁵Tl','1/2',24.56,70.5],82:['²⁰⁷Pb','1/2',8.91,22.1]};
+const ZERO={6:'碳 12（98.9%）',8:'氧 16（99.8%）',14:'硅 28（92.2%）',16:'硫 32（95%）',20:'钙 40（96.9%）',26:'铁 56（91.8%）',12:'镁 24（79%）',28:'镍 58（68%）'};
+function magTile(e,f){const m=MAG[e.z];let s='';
+if(m){const f1=m[2]*1e6;s='<div><span>磁频率（'+m[0]+'，自旋 '+m[1]+'，丰度 '+m[3]+'%）</span><b>'+m[2]+' MHz/T</b> <span class="note">3 T 时 '+(m[2]*3).toFixed(1)+' MHz</span></div>'+
+'<div><span>质量频率 ÷ 磁频率（1 T）</span><b>'+sci(f/f1)+'</b></div>';}
+else s='<div><span>磁频率</span><b>无常用核磁同位素数据</b></div>';
+if(ZERO[e.z])s+='<div><span>主同位素</span><b>'+ZERO[e.z]+' 自旋为零</b><span class="note">质子数、中子数都是偶数，磁的一面互相抵消</span></div>';
+return s}
+
+function renderDet(){if(!H)return;const e=EL[sel-1],m=e.A*u,f=m*c*c/h,mU=h*H/c**2,mP=Math.sqrt(hb*c/G),k=Math.log(m/mU)/Math.log(mP/mU);
+const fy=Math.pow(H,1-k/2)*Math.pow(nuE,k/2);
+$('det').innerHTML='<h3 style="margin:0 0 6px">以太结构 '+e.z+' ＝ '+e.name+'（'+e.sym+'）<span class="tag">'+e.blk+' 区</span></h3>'+
+'<div class="kv"><div><span>原子质量</span><b>'+e.A+' u ＝ '+sci(m)+' kg</b></div>'+
+'<div><span>对应频率 f＝mc²/h</span><b>'+sci(f)+' Hz</b></div>'+
+'<div><span>质量梯子位置 k</span><b>'+k.toFixed(4)+'</b></div>'+
+'<div><span>乙版写法 f＝H^(1−k/2)·ν以太^(k/2)</span><b>'+sci(fy)+' Hz</b> <span class="ok">'+(Math.abs(fy/f-1)<1e-9?'✓ 一致':'')+'</span></div>'+
+'<div><span>f ÷ ν以太</span><b>'+sci(f/nuE)+'</b></div><div><span>f ÷ H（宇宙一拍里振多少次）</span><b>'+sci(f/H)+'</b></div>'+
+'<div><span>以 N 为底的指数 log f / log N（相对 H）</span><b>'+(Math.log(f/H)/Math.log(N)).toFixed(4)+'</b></div>'+
+'<div><span>1 摩尔的质量</span><b>'+e.A+' g</b></div>'+magTile(e,f)+'</div>'+
+'<p class="note">'+(e.z>=43&&[43,61].includes(e.z)||e.z>83?'放射性元素，原子质量取最稳定同位素质量数。':'')+'一电一磁：质量频率（mc²/h）是电的那一面，磁频率（核磁共振 γ/2π）是磁的那一面。磁频率为约值，待核 IUPAC 2001 核磁表。同一结构号、不同频率＝同位素；化合物频率按总质量。</p>'}
+
+/* 物理公式：[名称, 标准写法, 乙版写法, 标准值函数, 乙版值函数, 单位, 说明] */
+const mp=1.67262192e-27,Ms=1.989e30,Me=5.972e24,Re=6.371e6;
+const PHY=[
+['质能关系','E = mc²','E = mc²（不含 ħ、G，原样）；结的频率 f = mc²/h',()=>1*c*c,()=>1*c*c,'J（m＝1 kg）','质量就是被锁住的频率'],
+['普朗克关系','E = hν = 2πħν','E = c⁵·ν / (2π·G·ν以太·H)',()=>h*1e15,()=>2*Math.PI*hbY()*1e15,'J（ν＝10¹⁵ Hz）','频率换能量的汇率'],
+['德布罗意波长','λ = h / p','λ = c⁵ / (2π·G·ν以太·H·p)',()=>h/(me*1e6),()=>2*Math.PI*hbY()/(me*1e6),'m（电子 10⁶ m/s）',''],
+['万有引力','F = G·M·m / r²','F = c⁵·M·m / (4π²·ħ·ν以太·H·r²)',()=>G*Me*1/Re**2,()=>GY()*Me/Re**2,'N（地表 1 kg）','结的疏密差换压差'],
+['以太内流＝逃逸速度','v = √(2GM/r)','v = √(c⁵·M / (2π²·ħ·ν以太·H·r))',()=>Math.sqrt(2*G*Me/Re),()=>Math.sqrt(2*GY()*Me/Re),'m/s（地表）','乙版公理 5：引力＝以太往结里流'],
+['引力红移（钟慢）','Δf/f = GM / (r·c²)','Δf/f = c³·M / (4π²·ħ·ν以太·H·r)',()=>G*Me/(Re*c*c),()=>GY()*Me/(Re*c*c),'（地表）','光钟测的就是这个'],
+['史瓦西半径','r_s = 2GM / c²','r_s = c³·M / (2π²·ħ·ν以太·H)',()=>2*G*Ms/c**2,()=>2*GY()*Ms/c**2,'m（太阳）','结打到极限'],
+['普朗克长度','ℓ_P = √(ħG/c³)','ℓ_P = c / (2π·√(ν以太·H))',()=>Math.sqrt(hb*G/c**3),()=>c/(2*Math.PI*Math.sqrt(nuE*H)),'m','只剩 c、ν以太、H'],
+['普朗克时间','t_P = √(ħG/c⁵)','t_P = 1 / (2π·√(ν以太·H))',()=>Math.sqrt(hb*G/c**5),()=>1/(2*Math.PI*Math.sqrt(nuE*H)),'s','人类边界的一拍'],
+['普朗克质量','m_P = √(ħc/G)','m_P = 2π·ħ·√(ν以太·H) / c²',()=>Math.sqrt(hb*c/G),()=>2*Math.PI*hb*Math.sqrt(nuE*H)/c**2,'kg','质量梯子的「门」'],
+['黑洞熵','S = k_B·c³·A / (4ħG)','S = π²·k_B·ν以太·H·A / c²',()=>kB*c**3*1/(4*hb*G),()=>Math.PI**2*kB*nuE*H*1/c**2,'J/K（A＝1 m²）','每格普朗克面积四分之一个 k_B'],
+['霍金温度','T = ħc³ / (8πGMk_B)','T = π·ħ²·ν以太·H / (2c²·M·k_B)',()=>hb*c**3/(8*Math.PI*G*Ms*kB),()=>Math.PI*hb**2*nuE*H/(2*c*c*Ms*kB),'K（太阳质量黑洞）',''],
+['精细结构常数','α = e² / (4πε₀ħc)','α = π·e²·G·ν以太·H / (ε₀·c⁶)',()=>qe**2/(4*Math.PI*eps0*hb*c),()=>qe**2/(4*Math.PI*eps0*hbY()*c),'（无量纲）','此处 e 是电荷，不是自然常数'],
+['玻尔半径','a₀ = 4πε₀ħ² / (m_e·e²)','a₀ = ε₀·c¹⁰ / (4π³·G²·ν以太²·H²·m_e·e²)',()=>4*Math.PI*eps0*hb**2/(me*qe**2),()=>4*Math.PI*eps0*hbY()**2/(me*qe**2),'m','以太结构 1 的电子轨道尺度'],
+['斯特藩—玻尔兹曼常数','σ = π²k_B⁴ / (60ħ³c²)','σ = π²·k_B⁴·(4π²·G·ν以太·H)³ / (60·c¹⁷)',()=>Math.PI**2*kB**4/(60*hb**3*c*c),()=>Math.PI**2*kB**4/(60*hbY()**3*c*c),'W/(m²·K⁴)',''],
+['哈勃定律','v = H·d','v = H·d（H 即宇宙层频率）',()=>H*3.0857e22,()=>H*3.0857e22,'m/s（d＝1 Mpc）',''],
+['张祥前归一化方程','4π²r³c² / (T²·G·h·ν) = 1','取 r＝c/H、T＝2π/H：ν ＝ c⁵/(hGH) ＝ 2π·ν以太',()=>c**5/(h*G*H),()=>2*Math.PI*nuE,'Hz（哈勃球的德布罗意频率）','整个哈勃球这个结的振动'],
+['温度换频率','ν = k_B·T / h','ν = 2π·k_B·T·G·ν以太·H / c⁵',()=>kB*310/h,()=>kB*310/(2*Math.PI*hbY()),'Hz（体温 310 K）','升 1 度＝多抖 208 亿 Hz'],
+['★ 频率差压·引力红移','Δf/f = GM / (r·c²)','Δf/f = f_质量 · f_距离 / ν人类边界²，其中 f_质量＝Mc²/h，f_距离＝c/(2πr)，ν人类边界²＝ν以太·H',()=>G*Me/(Re*c*c),()=>(Me*c*c/h)*(c/(2*Math.PI*Re))/(nuE*H),'（地表）','引力＝质量频率 × 距离频率 ÷ 人类边界频率²；GPS、伽利略卫星已测到 10⁻⁵ 精度'],
+['★ 频率差压·两结之间引力','F = G·m₁·m₂ / r²','F = c·h·f₁·f₂ / (2π·ν以太·H·r²)',()=>G*1*1/1,()=>c*h*(c*c/h)*(c*c/h)/(2*Math.PI*nuE*H),'N（两个 1 kg、相距 1 m）',''],
+['★ 频率差压·电力÷引力','F_e/F_g = e² / (4πε₀·G·m₁·m₂)','F_e/F_g = α · ν以太 · H / (f₁ · f₂)',()=>qe**2/(4*Math.PI*eps0*G*mp**2),()=>(qe**2/(4*Math.PI*eps0*hb*c))*nuE*H/((mp*c*c/h)**2),'（两个质子）','引力弱，因质子频率比人类边界频率低 19 个数量级'],
+['★ 频率差压·电力＝引力的交叉点','斯托尼质量 m = √α · m_P','f ＝ √α · √(ν以太·H)，m ＝ h·f / c²',()=>Math.sqrt(qe**2/(4*Math.PI*eps0*hb*c))*Math.sqrt(hb*c/G),()=>Math.sqrt(qe**2/(4*Math.PI*eps0*hb*c))*Math.sqrt(nuE*H)*h/c**2,'kg','Stoney 1874；梯子位置约 0.986'],
+];
+function row(r,i){const s=r[3](),y=r[4](),ok=Math.abs(y/s-1)<1e-9;return'<tr><td><b>'+r[0]+'</b><div class="note">'+r[6]+'</div></td><td class="f">'+r[1]+'</td><td class="f">'+r[2]+'</td><td class="f">'+sci(s)+'<div class="note">'+r[5]+'</div></td><td class="'+(ok?'ok':'')+'">'+(ok?'✓ 一致':sci(y))+'</td></tr>'}
+function renderPhy(){$('phy').innerHTML='<tr><th>公式</th><th>标准写法</th><th>乙版写法（ν以太、H）</th><th>数值</th><th>核对</th></tr>'+PHY.map(row).join('')}
+
+/* 化学公式（自然常数 e 用底色标出） */
+const E=s=>'<span class="ee">'+s+'</span>';
+const CHEM=[
+['理想气体','PV = nRT，R = N_A·k_B','R 里的 k_B 是温度换频率的汇率：k_B = h·(208 亿 Hz/K)',()=>R,()=>NA*kB,'J/(mol·K)'],
+['玻尔兹曼分布','n₂/n₁ = '+E('e')+'^(−ΔE / k_BT)','ΔE 写成频率差：n₂/n₁ = '+E('e')+'^(−h·Δν / k_BT)',()=>Math.exp(-0.2*qe/(kB*310)),()=>Math.exp(-h*(0.2*qe/h)/(kB*310)),'（0.2 eV、310 K）'],
+['阿伦尼乌斯','k = A·'+E('e')+'^(−E_a / RT)','反应速率随活化频率 E_a/(N_A·h) 指数下降',()=>Math.exp(-50e3/(R*310)),()=>Math.exp(-50e3/(R*310)),'（E_a＝50 kJ/mol 的指数因子）'],
+['能斯特方程','E = E⁰ − (RT / zF)·'+E('ln')+'Q','浓度比换电压：每 10 倍 2.303·k_BT/(z·e)',()=>2.302585*R*310/F,()=>Math.LN10*kB*310/qe,'V（310 K，z＝1，每 10 倍）'],
+['吉布斯与平衡常数','ΔG⁰ = −RT·'+E('ln')+'K，K = '+E('e')+'^(−ΔG⁰/RT)','ΔG = −nFE：电荷落差直接定反应方向',()=>Math.exp(57e3/(R*310)),()=>Math.exp(57e3/(R*310)),'（ATP 水解 57 kJ/mol 的 K）'],
+['质子动力','Δp = Δψ − (2.303RT/F)·ΔpH','细胞的场差压：电压项＋浓度项',()=>0.17+2.302585093*R*310/F*0.5,()=>0.17+Math.LN10*kB*310/qe*0.5,'V（Δψ 0.17 V、ΔpH 0.5）'],
+['放射性衰变','N = N₀·'+E('e')+'^(−λt)，t½ = '+E('ln')+'2 / λ','结解开的概率每一拍相同',()=>Math.log(2)/(5730*3.156e7),()=>Math.LN2/(5730*3.156e7),'1/s（碳 14 的 λ）'],
+['光化学','E = hc / λ','E = c⁶ / (2π·G·ν以太·H·λ)',()=>h*c/500e-9,()=>2*Math.PI*hbY()*c/500e-9,'J（500 nm 光子）'],
+['里德伯常数','R∞ = m_e·e⁴ / (8ε₀²·h³·c)','R∞ = π³·m_e·e⁴·G³·ν以太³·H³ / (ε₀²·c¹⁶)（e 是电荷）',()=>me*qe**4/(8*eps0**2*h**3*c),()=>me*qe**4/(8*eps0**2*(2*Math.PI*hbY())**3*c),'1/m'],
+['化学键能换频率','ν = ΔE / h','ν = 2π·ΔE·G·ν以太·H / c⁵',()=>4.48*qe/h,()=>4.48*qe/(2*Math.PI*hbY()),'Hz（H—H 键 4.48 eV）'],
+];
+function renderChem(){$('chem').innerHTML='<tr><th>公式</th><th>标准写法</th><th>乙版读法</th><th>数值</th><th>核对</th></tr>'+CHEM.map(r=>{const s=r[3](),y=r[4](),ok=Math.abs(y/s-1)<1e-6;return'<tr><td><b>'+r[0]+'</b></td><td class="f">'+r[1]+'</td><td class="f">'+r[2]+'</td><td class="f">'+sci(s)+'<div class="note">'+r[5]+'</div></td><td class="'+(ok?'ok':'')+'">'+(ok?'✓ 一致':sci(y))+'</td></tr>'}).join('')}
+
+
+/* 以太数字表 */
+const NUM=[
+[0,'ν以太·H − ν人类边界² ＝ 0；e^(iπ) ＋ 1 ＝ 0','中间级定律的差额：以太频率与膨胀率此消彼长，差额永远是零','定律'],
+[1,'ν以太·H ÷ ν人类边界² ＝ 1；log_N(ν人类边界 ÷ H)','同一条定律写成比值；张祥前归一化方程＝1；普朗克质量在梯子上的位置','定律'],
+[2,'log_N(ν以太 ÷ H)','从宇宙到以太爬两级；以太层在梯子上的位置；旋转占两维','乙版'],
+[3,'log_N(ν以太·ν人类边界 ÷ H²)','空间三维：四指绕拇指转两维，沿拇指推进一维','乙版公理'],
+[4,'log_N(ν以太² ÷ H²)','正四面体 4 个顶点、4 个面；一个人类格子里有 N⁴ 个以太格子','几何／乙版'],
+[5,'中间级定律分子里的 c⁵','ħG＝c⁵/(4π²ν以太H)','定律'],
+[6,'正四面体的棱数','先生说宇宙最基本的结构是正四面体','几何'],
+[7,'逢七必变','元素周期表 7 个周期（第 8 周期至今未造出）、7 大晶系；音阶 7 音后第 8 音回到 do、频率翻倍；《易·复卦》「七日来复」','周期与晶系为物理；其余为人定／文化'],
+[8,'每 8 个一个维度（先生）','八度＝频率 ×2；8 × 12 ＝ 96 → 10⁹⁶','先生说法'],
+[9,'九九归一','十进制最大的一位，9＋1 进位回到 1；9 的倍数各位相加仍为 9；9＝3²','数学'],
+[10,'1 与 0 的组合','十进制进位；二进制里一切信息都是 0 和 1；N 进制里「10」就是一级梯子','数学'],
+[11,'—','暂无结构对应','—'],
+[12,'12 个维度（先生）','10 × 12 ＝ 120 → 10¹²⁰ ＝ N²（宇宙到以太的总跨度）','先生说法'],
+];
+function renderNum(){if(!H)return;$('num').innerHTML='<tr><th>数</th><th>以太式</th><th>出处</th><th>性质</th></tr>'+NUM.map(r=>'<tr><td><b style="font-size:20px">'+r[0]+'</b></td><td class="f">'+r[1]+'</td><td>'+r[2]+'</td><td class="note">'+r[3]+'</td></tr>').join('');
+const n=+$('nn').value;$('nv').innerHTML=n+'　→　log_N((ν以太/H)^('+n+'/2)) ＝ '+(Math.log(Math.pow(nuE/H,n/2))/Math.log(N)).toFixed(6)}
+
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===b));['pt','phy','chem','num'].forEach(t=>$('t-'+t).hidden=t!==b.dataset.t)});
+$('h').oninput=setH;$('nn').oninput=renderNum;buildPT();setH();
+</script>
+</body>
+</html>
