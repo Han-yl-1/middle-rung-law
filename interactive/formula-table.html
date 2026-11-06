@@ -47,7 +47,7 @@ td.f{white-space:normal;word-break:break-word}
 <div class="note">读法说明：乙版写法由中间级定律换写，数值与标准写法完全相同（下表「核对」一栏实时验算）。ν以太与 H 总是以乘积出现，所以 ħ 与 G 只能消去其中一个。自然常数 e 只在指数与对数里出现，用<span class="ee">底色</span>标出。</div>
 </div>
 
-<div class="tabs"><button data-t="pt" class="on">元素周期表（以太结构 1–118）</button><button data-t="phy">物理公式</button><button data-t="chem">化学公式</button><button data-t="num">以太数字表 0–12</button></div>
+<div class="tabs"><button data-t="pt" class="on">元素周期表（以太结构 1–118）</button><button data-t="phy">物理公式</button><button data-t="chem">化学公式</button></div>
 
 <section id="t-pt">
 <div class="row"><input id="q" placeholder="搜元素：符号、名称或结构号" style="flex:1;min-width:200px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)"></div>
@@ -58,7 +58,6 @@ td.f{white-space:normal;word-break:break-word}
 
 <section id="t-phy" hidden><div class="card"><table id="phy"></table></div></section>
 <section id="t-chem" hidden><div class="card"><table id="chem"></table></div></section>
-<section id="t-num" hidden><div class="card"><p style="margin-top:0"><b>N 进制的梯子</b>：以 N 为底记数，宇宙＝<b>1</b>，人类边界＝<b>10</b>，以太＝<b>100</b>——三层梯子就是一个 N 进制的三位数。任意整数都可写成 <span class="f">n ＝ log_N((ν以太/H)^(n/2))</span>（这是记数法，不是发现）。</p><div class="row"><span>算一个：n＝</span><input id="nn" type="range" min="0" max="12" step="1" value="3"><b id="nv"></b></div><table id="num"></table><p class="note">性质一栏分五种：定律（来自中间级定律）、乙版（来自公理）、几何、先生说法、数学或文化。分量不一样。</p></div></section>
 </main>
 <script>
 const h=6.62607015e-34,hb=h/2/Math.PI,c=299792458,G=6.6743e-11,kB=1.380649e-23,qe=1.602176634e-19,eps0=8.8541878128e-12,me=9.1093837015e-31,u=1.66053906660e-27,NA=6.02214076e23,F=96485.33212,R=8.314462618;
@@ -68,7 +67,7 @@ function sup(n){return String(n).replace(/-/g,'⁻').replace(/\d/g,d=>'⁰¹²³
 function sci(x,d=3){if(!isFinite(x))return'—';if(x===0)return'0';const p=Math.floor(Math.log10(Math.abs(x)));if(p>=-2&&p<=4)return(+x.toPrecision(d+1)).toLocaleString('zh-CN');return(x/10**p).toFixed(d)+'×10'+sup(p)}
 function setH(){const H0=+$('h').value;$('hv').textContent=H0.toFixed(1)+' km/s/Mpc';H=H0*1e3/3.0857e22;nuP=Math.sqrt(c**5/(hb*G))/(2*Math.PI);nuE=nuP*nuP/H;N=nuP/H;
 $('lawnums').innerHTML='H＝'+sci(H)+' Hz　ν以太＝'+sci(nuE)+' Hz　ν人类边界＝'+sci(nuP)+' Hz　N＝'+sci(N)+'　ν以太·H＝'+sci(nuE*H)+'（恒等于 c⁵/4π²ħG＝'+sci(c**5/(4*Math.PI**2*hb*G))+'）';
-renderDet();renderPhy();renderChem();renderNum()}
+renderDet();renderPhy();renderChem()}
 /* 乙版：从 ν以太·H 反求 ħ 或 G（保留另一个） */
 const hbY=()=>c**5/(4*Math.PI**2*G*nuE*H), GY=()=>c**5/(4*Math.PI**2*hb*nuE*H);
 
@@ -153,27 +152,8 @@ const CHEM=[
 function renderChem(){$('chem').innerHTML='<tr><th>公式</th><th>标准写法</th><th>乙版读法</th><th>数值</th><th>核对</th></tr>'+CHEM.map(r=>{const s=r[3](),y=r[4](),ok=Math.abs(y/s-1)<1e-6;return'<tr><td><b>'+r[0]+'</b></td><td class="f">'+r[1]+'</td><td class="f">'+r[2]+'</td><td class="f">'+sci(s)+'<div class="note">'+r[5]+'</div></td><td class="'+(ok?'ok':'')+'">'+(ok?'✓ 一致':sci(y))+'</td></tr>'}).join('')}
 
 
-/* 以太数字表 */
-const NUM=[
-[0,'ν以太·H − ν人类边界² ＝ 0；e^(iπ) ＋ 1 ＝ 0','中间级定律的差额：以太频率与膨胀率此消彼长，差额永远是零','定律'],
-[1,'ν以太·H ÷ ν人类边界² ＝ 1；log_N(ν人类边界 ÷ H)','同一条定律写成比值；张祥前归一化方程＝1；普朗克质量在梯子上的位置','定律'],
-[2,'log_N(ν以太 ÷ H)','从宇宙到以太爬两级；以太层在梯子上的位置；旋转占两维','乙版'],
-[3,'log_N(ν以太·ν人类边界 ÷ H²)','空间三维：四指绕拇指转两维，沿拇指推进一维','乙版公理'],
-[4,'log_N(ν以太² ÷ H²)','正四面体 4 个顶点、4 个面；一个人类格子里有 N⁴ 个以太格子','几何／乙版'],
-[5,'中间级定律分子里的 c⁵','ħG＝c⁵/(4π²ν以太H)','定律'],
-[6,'正四面体的棱数','先生说宇宙最基本的结构是正四面体','几何'],
-[7,'逢七必变','元素周期表 7 个周期（第 8 周期至今未造出）、7 大晶系；音阶 7 音后第 8 音回到 do、频率翻倍；《易·复卦》「七日来复」','周期与晶系为物理；其余为人定／文化'],
-[8,'每 8 个一个维度（先生）','八度＝频率 ×2；8 × 12 ＝ 96 → 10⁹⁶','先生说法'],
-[9,'九九归一','十进制最大的一位，9＋1 进位回到 1；9 的倍数各位相加仍为 9；9＝3²','数学'],
-[10,'1 与 0 的组合','十进制进位；二进制里一切信息都是 0 和 1；N 进制里「10」就是一级梯子','数学'],
-[11,'—','暂无结构对应','—'],
-[12,'12 个维度（先生）','10 × 12 ＝ 120 → 10¹²⁰ ＝ N²（宇宙到以太的总跨度）','先生说法'],
-];
-function renderNum(){if(!H)return;$('num').innerHTML='<tr><th>数</th><th>以太式</th><th>出处</th><th>性质</th></tr>'+NUM.map(r=>'<tr><td><b style="font-size:20px">'+r[0]+'</b></td><td class="f">'+r[1]+'</td><td>'+r[2]+'</td><td class="note">'+r[3]+'</td></tr>').join('');
-const n=+$('nn').value;$('nv').innerHTML=n+'　→　log_N((ν以太/H)^('+n+'/2)) ＝ '+(Math.log(Math.pow(nuE/H,n/2))/Math.log(N)).toFixed(6)}
-
-document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===b));['pt','phy','chem','num'].forEach(t=>$('t-'+t).hidden=t!==b.dataset.t)});
-$('h').oninput=setH;$('nn').oninput=renderNum;buildPT();setH();
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===b));['pt','phy','chem'].forEach(t=>$('t-'+t).hidden=t!==b.dataset.t)});
+$('h').oninput=setH;buildPT();setH();
 </script>
 </body>
 </html>
