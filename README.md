@@ -9,6 +9,7 @@ The Planck frequency is the geometric mean of the cosmic expansion rate H and an
 ## Public timestamps (authoritative copies)
 - OSF preregistration: https://doi.org/10.17605/OSF.IO/SPRZJ
 - Zenodo archive: https://doi.org/10.5281/zenodo.23986272
+- Zenodo v2 (2026-11-06, predictions unchanged; compendium adds "Axioms and definitions" + Chinese edition): https://doi.org/10.5281/zenodo.23994859 — all versions / latest: https://doi.org/10.5281/zenodo.23986271
 
 This repository is a convenience mirror. If anything here differs from the OSF/Zenodo records, those records prevail.
 
