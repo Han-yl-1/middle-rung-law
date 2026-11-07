@@ -10,6 +10,8 @@ The Planck frequency is the geometric mean of the cosmic expansion rate H and an
 - OSF preregistration: https://doi.org/10.17605/OSF.IO/SPRZJ
 - Zenodo archive: https://doi.org/10.5281/zenodo.23986272
 - Zenodo v2 (2026-11-06, predictions unchanged; compendium adds "Axioms and definitions" + Chinese edition): https://doi.org/10.5281/zenodo.23994859 — all versions / latest: https://doi.org/10.5281/zenodo.23986271
+- Zenodo v5 (2026-11-06, adds exact 9.90 Gyr lookback transition to "Axioms and definitions" Item 7, P6 the Planck gate, and P6.1 the Planck blind band & observational collective effect): https://doi.org/10.5281/zenodo.24031859
+- OSF companion files node (latest English & Chinese PDFs): https://osf.io/mybux/
 
 This repository is a convenience mirror. If anything here differs from the OSF/Zenodo records, those records prevail.
 
