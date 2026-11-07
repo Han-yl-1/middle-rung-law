@@ -21,6 +21,8 @@ This repository is a convenience mirror. If anything here differs from the OSF/Z
 | P3 | Expansion history | coasting below z ≈ 1.6; H at z = 2.33 about 3% below ΛCDM |
 | P4 | Dark matter | compact objects of 10¹⁴–10²⁰ kg |
 | P5 | MOND-like scale a₀ | (0.96–0.98)×10⁻¹⁰ m/s² today, ∝ H(z) |
+| P6 | The Planck gate (addendum, 2026-11-06) | no non-classical motional state for m_eff ≥ 21.8 μg |
+| P6.1 | The Planck blind band & observational collective (addendum, 2026-11-06) | dual-channel (classical + non-classical) disappearance across 21.8 ± 0.3 μg (or wider), shifting with the observational collective (laboratory, surrounding heavy equipment, observer body-mass frequency) |
 
 Full text: [PREREGISTRATION.md](PREREGISTRATION.md). Verdict log: [VERDICTS.md](VERDICTS.md).
 
