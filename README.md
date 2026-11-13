@@ -11,6 +11,7 @@ The Planck frequency is the geometric mean of the cosmic expansion rate H and an
 - OSF companion files node (latest unified English & Chinese PDFs): https://osf.io/mybux/
 - Zenodo concept DOI (always resolves to latest edition): https://doi.org/10.5281/zenodo.23986271
 - Zenodo v6 (2026-11-06, unified edition with P1–P6.1 in the main predictions table, exact 9.900 Gyr lookback transition, and Part II Formula Compendium): https://doi.org/10.5281/zenodo.24032603
+- Zenodo v7 (2026-11-13, merged edition: Parts I–II unchanged + Part III full mother-equation paper (Z-Model rev. 14) + Part IV addendum incl. P6.2; T_lock = 232 as corrected to a numerically computed value): https://doi.org/10.5281/zenodo.24189100
 
 This repository is a convenience mirror. If anything here differs from the OSF/Zenodo records, those records prevail.
 
